@@ -6,12 +6,16 @@
 #define CE_PIN 7
 #define CSN_PIN 8
 
-int red = analogRead(A7);
-int green = analogRead(A2);
-int blue = analogRead(A5);
-byte colordata[3] = {red, green, blue};
+// this structure will contain all data that is sent through radio
+struct{
+    uint8_t instructionType;
+    uint8_t red;
+    uint8_t green;
+    uint8_t blue;
+    uint8_t alpha;
+}rfcommand;
 
-bool send = digitalRead(6);
+bool send = false;
 bool radioNumber = 1;
 
 // instantiate an object for the nRF24L01 transceiver
@@ -32,22 +36,25 @@ void setup(){
     radio.openWritingPipe(address);
     radio.setPALevel(RF24_PA_LOW);
     radio.stopListening();
+
+    rfcommand.instructionType = 1;
 }
 
 void loop(){
-    red = 0.25 * analogRead(A7);
-    green = 0.25 * analogRead(A2);
-    blue = 0.25 * analogRead(A5);
-    colordata[0] = red;
-    colordata[1] = green;
-    colordata[2] = blue;
+    rfcommand.red = 0.25 * analogRead(A7);
+    rfcommand.green = 0.25 * analogRead(A2);
+    rfcommand.blue = 0.25 * analogRead(A5);
 
+    // This code will run only when the button to send the data is pressed, before that the user can configure the setting.
     send = digitalRead(6);
-
-    Serial.println(colordata[1]);
     if(send){
-        radio.write(&colordata[3], sizeof(colordata));
-        Serial.println(colordata[2]);
+        radio.write(&rfcommand, sizeof(rfcommand));
+        Serial.print("red=");
+        Serial.println(rfcommand.red);
+        Serial.print("green=");
+        Serial.println(rfcommand.green);
+        Serial.print("blue=");
+        Serial.println(rfcommand.blue);
     };
     delay(1000);
 }

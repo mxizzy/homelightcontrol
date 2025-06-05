@@ -6,9 +6,15 @@
 #define CE_PIN 7
 #define CSN_PIN 8
 
+// This structure is where received data will be buffered into. I am using uint8_t because the bytes that are sent will be 8 bits long, and they need to be received in the same size to not be corrupted
+struct{
+    uint8_t instructionType;
+    uint8_t red;
+    uint8_t green;
+    uint8_t blue;
+    uint8_t alpha;
+}rfcommand;
 
-int colordata;
-int* radioSignal;
 // instantiate an object for the nRF24L01 transceiver
 RF24 radio(CE_PIN, CSN_PIN);
 
@@ -29,10 +35,21 @@ void setup(){
 
 void loop (){
   //read radio address
-  radio.read(&colordata, sizeof(colordata));
-  //serial print colorsignal
-*radioSignal = colordata;
-  Serial.println(*radioSignal);
+  radio.read(&rfcommand, sizeof(rfcommand));
   delay(1000);
-  analogWrite(6, colordata);
+  // Only execute commands if an instruction type has been set, if not, this is the indication of an invalid signal or no signal.
+  switch (rfcommand.instructionType)
+  {
+  case 1:
+      // Print values to serial out, this is just for debugging purposes
+    Serial.print("red=");
+    Serial.println(rfcommand.red);
+    Serial.print("green=");
+    Serial.println(rfcommand.green);
+    Serial.print("blue=");
+    Serial.println(rfcommand.blue);
+    break;
+  default:
+    break;
+  }
 }
