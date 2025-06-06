@@ -30,26 +30,44 @@ void setup(){
   radio.startListening();
   //open serial communication
   Serial.begin(115200);
+  // setup pins
   pinMode(6, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(5, OUTPUT);
 }
 
 void loop (){
-  //read radio address
+  //read radio address and store signal in rfcommand
   radio.read(&rfcommand, sizeof(rfcommand));
-  delay(1000);
   // Only execute commands if an instruction type has been set, if not, this is the indication of an invalid signal or no signal.
   switch (rfcommand.instructionType)
   {
   case 1:
       // Print values to serial out, this is just for debugging purposes
+    Serial.print("instuction type: ");
+    Serial.println(rfcommand.instructionType);
     Serial.print("red=");
     Serial.println(rfcommand.red);
     Serial.print("green=");
     Serial.println(rfcommand.green);
     Serial.print("blue=");
     Serial.println(rfcommand.blue);
+    // Apply colors to LED lights
+    analogWrite(6, rfcommand.green);
+    analogWrite(5, rfcommand.red);
+    analogWrite(3, rfcommand.blue);
+    break;
+  case 2:
+    Serial.println(rfcommand.instructionType);
+    rfcommand.red = 0;
+    rfcommand.green = 0;
+    rfcommand.blue = 0;
+    analogWrite(6, rfcommand.green);
+    analogWrite(5, rfcommand.red);
+    analogWrite(3, rfcommand.blue);
     break;
   default:
     break;
+  rfcommand.instructionType = 0;
   }
 }

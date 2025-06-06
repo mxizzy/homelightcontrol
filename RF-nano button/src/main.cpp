@@ -16,6 +16,7 @@ struct{
 }rfcommand;
 
 bool send = false;
+bool off = false;
 bool radioNumber = 1;
 
 // instantiate an object for the nRF24L01 transceiver
@@ -27,17 +28,15 @@ void setup(){
     pinMode(A2, INPUT);
     pinMode(A5, INPUT);
     pinMode(6, INPUT);
-    pinMode(10, INPUT);
+    pinMode(9, INPUT);
 
     Serial.begin(115200);
-
+    // This code sets up the radio to transmit
     radioNumber = 1;
     radio.begin();
     radio.openWritingPipe(address);
     radio.setPALevel(RF24_PA_LOW);
     radio.stopListening();
-
-    rfcommand.instructionType = 1;
 }
 
 void loop(){
@@ -47,14 +46,14 @@ void loop(){
 
     // This code will run only when the button to send the data is pressed, before that the user can configure the setting.
     send = digitalRead(6);
+    off = digitalRead(9);
     if(send){
+        rfcommand.instructionType = 1;
         radio.write(&rfcommand, sizeof(rfcommand));
-        Serial.print("red=");
-        Serial.println(rfcommand.red);
-        Serial.print("green=");
-        Serial.println(rfcommand.green);
-        Serial.print("blue=");
-        Serial.println(rfcommand.blue);
     };
-    delay(1000);
+    if(off){
+        rfcommand.instructionType = 2;
+        radio.write(&rfcommand, sizeof(rfcommand));
+    };
+    Serial.println(off);
 }
