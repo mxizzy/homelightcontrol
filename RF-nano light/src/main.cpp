@@ -43,15 +43,6 @@ void loop (){
   switch (rfcommand.instructionType)
   {
   case 1:
-      // Print values to serial out, this is just for debugging purposes
-    Serial.print("instuction type: ");
-    Serial.println(rfcommand.instructionType);
-    Serial.print("red=");
-    Serial.println(rfcommand.red);
-    Serial.print("green=");
-    Serial.println(rfcommand.green);
-    Serial.print("blue=");
-    Serial.println(rfcommand.blue);
     // Apply colors to LED lights
     analogWrite(6, rfcommand.green);
     analogWrite(5, rfcommand.red);
@@ -67,7 +58,19 @@ void loop (){
     analogWrite(3, rfcommand.blue);
     break;
   default:
+    Serial.println("invalid instructionType received!");
+    Serial.print("instuction type: ");
+    Serial.println(rfcommand.instructionType);
+    Serial.print("red=");
+    Serial.println(rfcommand.red);
+    Serial.print("green=");
+    Serial.println(rfcommand.green);
+    Serial.print("blue=");
+    Serial.println(rfcommand.blue);
+    Serial.print("alpha=");
+    Serial.println(rfcommand.alpha);
     break;
+  
   rfcommand.instructionType = 0;
   }
 }
