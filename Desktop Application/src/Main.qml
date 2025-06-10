@@ -10,25 +10,48 @@ Kirigami.ApplicationWindow{
     height: 500
 
     pageStack.initialPage: Kirigami.ScrollablePage{
-        Kirigami.ListView{
-            id:sidebar
+        ListView{
+            width:200;
+            delegate: sidebarDelegate
             model: sidebarModel
-            delegate: sidebarItem
         }
         ListModel{
             id: sidebarModel
             ListElement{
                 name: "Office LED strip"
-            }
+                }
             ListElement{
                 name: "Bedside LED strip"
             }
+    }
+            
+
         }
         Component{
-            id: sidebarItem
-            Controls.ItemDelegate {
-                width: Listview.view.width
-                text: `${model.name}`
+            id:sidebarDelegate
+            Kirigami.AbstractCard{
+                Kirigami.Heading{
+                    Layout.fillWidth: true
+                    level: 2
+                    text: name
+                }
+                Kirigami.Separator{
+                    Layout.fillWidth: true
+                    visible: name.length > 0
+                }
+                Controls.Button {
+                    text: "open page"
+                    onClicked: pageStack.push(palettePage)
+                }
+            }
+
+    }
+    Component{
+        id: palettePage
+        Kirigami.Page{
+            Rectangle{
+                anchors.fill:parent
+                color:"lightgreen"
             }
         }
     }
