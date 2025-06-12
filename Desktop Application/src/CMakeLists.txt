@@ -12,7 +12,9 @@ target_sources(hlc-desktop
 
 ecm_target_qml_sources(hlc-desktop
     SOURCES
-    Main.qml
+    qml/Main.qml
+    qml/BedsideSettings.qml
+    qml/Sidebar.qml
 )
 
 target_link_libraries(hlc-desktop
