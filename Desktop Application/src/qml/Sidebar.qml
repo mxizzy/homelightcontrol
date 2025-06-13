@@ -1,4 +1,4 @@
-// "BasicPage.qml"
+// // "BasicPage.qml"
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as Controls
@@ -23,45 +23,56 @@ import org.kde.kirigami as Kirigami
 //         }
 //     }
 // }
-Kirigami.ScrollablePage{
-    id: sidebar
-    width: 150;
+// Kirigami.ScrollablePage{
+//     id: sidebar
     Rectangle{
         width: 150;
+        height: parent.height
         ListView{
             delegate: sidebarDelegate
             model: sidebarModel
             width: 50;
+            height: parent.height
         }
         ListModel{
             id: sidebarModel
             ListElement{
+                name: "Home"
+                targetPage: "Home.qml"
+            }
+            ListElement{
                 name: "Office LED strip"
-                page: "officeSettings"
+                targetPage: "OfficeSettings.qml"
                 }
             ListElement{
                 name: "Bedside LED strip"
-                page: "bedsideSettings"
+                targetPage: "BedsideSettings.qml"
             }
         }
         Component{
             id:sidebarDelegate
             RowLayout{
-                height: 40;
-                width: sidebar.width;
-                id: sidebarItemRow
-                spacing: 30
-                Kirigami.Heading {
-                    text: name
-                    
-                }
-                Controls.Button {
-                    text: name
-                    onClicked: {
-                        applicationWindow().pageStack.push(bedsideSettings)
+                Rectangle{
+                    height: 40;
+                    width: sidebar.width;
+                    id: sidebarItemRow
+                    Kirigami.Heading {
+                        text: name
+                    }
+                    Controls.Button {
+                        text: name
+                        onClicked: {
+                            pageNav.trigger()
+                        }
                     }
                 }
-                
+                // onClicked: pageNav.trigger()
+                Kirigami.PagePoolAction{
+                    id: pageNav
+                    pagePool: mainPagePool
+                    basePage: sidebar
+                    page: targetPage
+                }
                 }
                 
 
@@ -69,32 +80,6 @@ Kirigami.ScrollablePage{
         Component{
             id: bedsideSettings
             Kirigami.Page{BedsideSettings{}}
-            // Kirigami.Page{
-            //     id: bedsideSettings
-            //     height: parent.height
-
-            //     Rectangle{
-            //         anchors.bottomMargin: real
-            //         height: Kirigami.Units.largeSpacing
-
-            //         Controls.Button{
-            //             anchors.right: parent.right
-            //             anchors.left: undefined
-            //             Kirigami.Icon{
-            //                 source: "checkbox"
-            //             }
-            //             text: "Apply"
-            //         }
-            //     }
-            //     GridLayout{
-            //         id: settingsLayout
-            //         anchors{
-            //             left: parent.left
-            //             top: parent.top
-            //             right:parent.right
-            //         }
-            //     }
-            // }
         }
     }
-}
+// }

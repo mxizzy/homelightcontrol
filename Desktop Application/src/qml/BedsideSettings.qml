@@ -4,8 +4,8 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 
 Rectangle {
-    anchors.fill: parent
-    color: "lightblue"
+    anchors.bottom: parent.bottom
+    height: Kirigami.Units.largeSpacing
     Controls.Button{
         anchors.right: parent.right
         anchors.bottom: parent.bottom

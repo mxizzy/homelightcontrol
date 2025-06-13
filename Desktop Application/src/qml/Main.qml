@@ -4,7 +4,18 @@ Kirigami.ApplicationWindow {
     title: "Pushing a Page from a different QML file"
     width: 900
     height: 400
-    pageStack.initialPage: Sidebar{}
+    pageStack.initialPage: [ sidebar, home ]
+    Kirigami.ScrollablePage{
+        id: sidebar
+        Sidebar{}
+    }
+    Kirigami.Page{
+        id: home
+        Home{}
+    }
+    Kirigami.PagePool{
+        id:mainPagePool
+    }
 }
 // import QtQuick
 // import QtQuick.Layouts
