@@ -4,19 +4,22 @@ Kirigami.ApplicationWindow {
     title: "Pushing a Page from a different QML file"
     width: 900
     height: 400
-    pageStack.initialPage: [ sidebar, home ]
-    Kirigami.ScrollablePage{
-        id: sidebar
-        Sidebar{}
-    }
-    Kirigami.Page{
-        id: home
-        Home{}
-    }
-    Kirigami.PagePool{
-        id:mainPagePool
-    }
+    pageStack.initialPage: [ sidebar, Qt.resolvedUrl("Home.qml") ]
+        Kirigami.PagePool{
+            id:mainPagePool
+        }
+        Kirigami.ScrollablePage{
+            id: sidebar
+            title: "HomeLightControl"
+            Sidebar{}
+        }
+        // Kirigami.Page{
+        //     id: home
+        //     title: "Home"
+        //     Home{}
+        // }
 }
+
 // import QtQuick
 // import QtQuick.Layouts
 // import QtQuick.Controls as Controls

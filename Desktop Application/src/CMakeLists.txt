@@ -16,6 +16,7 @@ ecm_target_qml_sources(hlc-desktop
     qml/BedsideSettings.qml
     qml/Sidebar.qml
     qml/Home.qml
+    qml/OfficeSettings.qml
 )
 
 target_link_libraries(hlc-desktop

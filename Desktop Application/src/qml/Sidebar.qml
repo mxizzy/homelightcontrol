@@ -23,8 +23,8 @@ import org.kde.kirigami as Kirigami
 //         }
 //     }
 // }
-// Kirigami.ScrollablePage{
-//     id: sidebar
+Kirigami.ScrollablePage{
+    height: parent.height
     Rectangle{
         width: 150;
         height: parent.height
@@ -56,14 +56,12 @@ import org.kde.kirigami as Kirigami
                     height: 40;
                     width: sidebar.width;
                     id: sidebarItemRow
-                    Kirigami.Heading {
-                        text: name
-                    }
+                    // Kirigami.Heading {
+                    //     text: name
+                    // }
                     Controls.Button {
                         text: name
-                        onClicked: {
-                            pageNav.trigger()
-                        }
+                        onClicked: pageNav.trigger()
                     }
                 }
                 // onClicked: pageNav.trigger()
@@ -73,13 +71,7 @@ import org.kde.kirigami as Kirigami
                     basePage: sidebar
                     page: targetPage
                 }
-                }
-                
-
-        }
-        Component{
-            id: bedsideSettings
-            Kirigami.Page{BedsideSettings{}}
+            }
         }
     }
-// }
+}
