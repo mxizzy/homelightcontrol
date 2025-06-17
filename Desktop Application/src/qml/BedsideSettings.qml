@@ -49,7 +49,7 @@ Kirigami.Page{
             GridLayout{
                 columns: 2
                 Kirigami.Chip{
-                    RowLayout{
+                    Row{
                         Rectangle{
                             height: parent.height
                             width: parent.height
@@ -61,7 +61,7 @@ Kirigami.Page{
                     }
                 }
                 Kirigami.Chip{
-                    RowLayout{
+                    Row{
                         Rectangle{
                             height: parent.height
                             width: parent.height
@@ -73,7 +73,7 @@ Kirigami.Page{
                     }
                 }
                 Kirigami.Chip{
-                    RowLayout{
+                    Row{
                         Rectangle{
                             height: parent.height
                             width: parent.height
@@ -85,7 +85,7 @@ Kirigami.Page{
                     }
                 }
                 Kirigami.Chip{
-                    RowLayout{
+                    Row{
                         Rectangle{
                             height: parent.height
                             width: parent.height
@@ -97,7 +97,7 @@ Kirigami.Page{
                     }
                 }
                 Kirigami.Chip{
-                    RowLayout{
+                    Row{
                         Rectangle{
                             height: parent.height
                             width: parent.height
@@ -109,7 +109,7 @@ Kirigami.Page{
                     }
                 }
                 Kirigami.Chip{
-                    RowLayout{
+                    Row{
                         Rectangle{
                             height: parent.height
                             width: parent.height
@@ -121,7 +121,7 @@ Kirigami.Page{
                     }
                 }
                 Kirigami.Chip{
-                    RowLayout{
+                    Row{
                         Rectangle{
                             height: parent.height
                             width: parent.height
