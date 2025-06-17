@@ -1,4 +1,3 @@
-// // "BasicPage.qml"
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as Controls
@@ -24,15 +23,11 @@ import org.kde.kirigami as Kirigami
 //     }
 // }
 Kirigami.ScrollablePage{
-    height: parent.height
-    Rectangle{
-        width: 150;
-        height: parent.height
         ListView{
             delegate: sidebarDelegate
             model: sidebarModel
-            width: 50;
             height: parent.height
+            Layout.margins: 0
         }
         ListModel{
             id: sidebarModel
@@ -49,21 +44,21 @@ Kirigami.ScrollablePage{
                 targetPage: "BedsideSettings.qml"
             }
         }
-        Component{
+        Controls.ItemDelegate{
             id:sidebarDelegate
-            RowLayout{
-                Rectangle{
-                    height: 40;
-                    width: sidebar.width;
-                    id: sidebarItemRow
+            width: sidebar.width
+            text: name
+            // RowLayout{
+            //     Controls.AbstractButton{
+            //         height: 40;
+            //         width: parent.width;
+            //         text: name
+            //         id: sidebarItemRow
                     // Kirigami.Heading {
                     //     text: name
                     // }
-                    Controls.Button {
-                        text: name
-                        onClicked: pageNav.trigger()
-                    }
-                }
+                    onClicked: pageNav.trigger()
+                // }
                 // onClicked: pageNav.trigger()
                 Kirigami.PagePoolAction{
                     id: pageNav
@@ -71,7 +66,6 @@ Kirigami.ScrollablePage{
                     basePage: sidebar
                     page: targetPage
                 }
-            }
+            // }
         }
-    }
 }

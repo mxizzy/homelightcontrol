@@ -1,7 +1,7 @@
 import org.kde.kirigami as Kirigami
 
 Kirigami.ApplicationWindow {
-    title: "Pushing a Page from a different QML file"
+    title: "HomeLightCtrl"
     width: 900
     height: 400
     pageStack.initialPage: [ sidebar, Qt.resolvedUrl("Home.qml") ]
@@ -13,11 +13,6 @@ Kirigami.ApplicationWindow {
             title: "HomeLightControl"
             Sidebar{}
         }
-        // Kirigami.Page{
-        //     id: home
-        //     title: "Home"
-        //     Home{}
-        // }
 }
 
 // import QtQuick
